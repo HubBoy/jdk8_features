@@ -4,9 +4,7 @@ import com.owl.jdk8.functionalinterface.IOperation;
 import com.owl.jdk8.functionalinterface.Operation;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -35,17 +33,22 @@ public class Lambda {
 	public void lambdaThread(){
 		int num1 = 1;
 		int num2 = 2;
-		new Thread(() -> System.out.println(num1 + num2)).start();
+		new Thread(()->System.out.println(num1+num2)).start();
 	}
 
+	/**
+	 * 函数式编程搭配lambda
+	 */
 	@Test
 	public void lambdaFunctionInterface(){
-		IOperation operation = (int num1, int num2) -> num1 + num2;
-
+		IOperation iOperation = (num1, num2) -> num1 - num2;
 		int num1 = 1;
 		int num2 = 2;
-		int sum = operation.add(num1, num2);
-		System.out.format(">>>>>>function interface abstract method lambda add: %d + %d = %d",num1 ,num1, sum);
+		System.out.format(">>>>>>user-defined implements function interface abstract method lambda add: %d - %d = %d",num2 ,num1, iOperation.add(num2,num1));
+
+		System.out.println();
+		Operation operation = new Operation();
+		System.out.format(">>>>>>implements class add: %d + %d = %d",num2 ,num1, operation.add(num2,num1));
 
 		System.out.println();
 		int mulValue = IOperation.multiply(num1, num2);
@@ -53,11 +56,10 @@ public class Lambda {
 
 		System.out.println();
 
-		IOperation defaultOperation = new Operation();
-		int subValue = defaultOperation.subtract(num1, num2);
+		int subValue = operation.subtract(num1, num2);
 		System.out.format(">>>>>>function interface  default method subtract: %d - %d = %d", num1, num2, subValue);
 
-	}
 
+	}
 
 }
